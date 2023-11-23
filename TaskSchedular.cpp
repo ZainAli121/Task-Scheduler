@@ -55,9 +55,44 @@ class TaskScheduler{
 int main(){
 	// add a while loop that is always true and also it will display some list first of all as soon as user enters the app he should get the menu to enter his priority so that we can sort our linkedlist accordingly
 	TaskScheduler list;
-    list.addTask(1 ,"Quiz", "Task 1", "12/12/2020");
-    list.addTask(2, "Project Work" ,"Task 2", "11/01/2022");
+    int choice, id;
+    string title, desc, dueDate;
+    cout<<"*********Welcome to Task Scheduler*********"<<endl;
+   do {
+        cout<<"\n<----Our Menu Card---->\n";
+        cout<<"1. Add a task\n";
+        cout<<"2. Display the tasks\n";
+        cout<<"0. Exit\n";
+        cout<<"Enter your choice: ";
+        cin >> choice;
 
-    cout<<"Tasks in the scheduler:"<<endl;
-    list.displayTasks();
+        switch (choice) {
+        case 1:
+            cout<<"Enter ID: ";
+            cin>>id;
+            cout<<"Enter Title: ";
+            cin>>title;
+            cout<<"Enter Description: ";
+            cin>>desc;
+            cout<<"Enter Due Date: ";
+            cin>>dueDate;
+            list.addTask(id, title, desc, dueDate);
+            break;
+
+        case 2:
+            cout << "\nDisplaying all tasks..."<<endl;
+            list.displayTasks();
+            break;
+
+        case 3:
+             cout<<"Exiting the program"<<endl;
+            break;
+
+        default:
+            cout << "Invalid choice. Please enter a valid option.\n";
+        }
+
+    } while (choice != 0);
+
+    return 0;
 }
