@@ -6,6 +6,7 @@ struct Task{
 	string title;
 	string desc;
 	string dueDate;
+//  add string category/priority // so that we can search 
 	Task* next;
 	Task* prev;
 };
@@ -17,6 +18,7 @@ class TaskScheduler{
 	public:
          TaskScheduler(){
 		this->head = NULL;
+		 // Here add this.tail=null
 	}
 
     // function to add at first position
@@ -45,8 +47,13 @@ class TaskScheduler{
         }
     }
 };
-
+// Make a functions:
+//  that will automatically sort our DOUBLY linked list according to priority etc.
+//  that search the Task by by Date (near to far), by priority set by him ( at the start ) .
+//  that search by Category i.e fitness category will give all the tasks related to fitness ( we can search by string category/priority already defined in Task Node Stucture.
+// that enables user to edit the task first user will search task by name ( added already ) then update it ,Updated Node will go in the Place of which user wants to change.
 int main(){
+	// add a while loop that is always true and also it will display some list first of all as soon as user enters the app he should get the menu to enter his priority so that we can sort our linkedlist accordingly
 	TaskScheduler list;
     list.addTask(1 ,"Quiz", "Task 1", "12/12/2020");
     list.addTask(2, "Project Work" ,"Task 2", "11/01/2022");
