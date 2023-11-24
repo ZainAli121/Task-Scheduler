@@ -6,7 +6,7 @@ struct Task{
 	string title;
 	string desc;
 	string dueDate;
-//  add string category/priority // so that we can search 
+    float priority; 
 	Task* next;
 	Task* prev;
 };
@@ -22,8 +22,8 @@ class TaskScheduler{
 	}
 
     // function to add at first position
-    void addTask(int id, string title, string desc, string dueDate){
-    Task* task = new Task{id, title, desc, dueDate};   
+    void addTask(int id, string title, string desc, string dueDate, float priority){
+    Task* task = new Task{id, title, desc, dueDate, priority};   
     task->next = head;
     task->prev = NULL; 
 
@@ -35,16 +35,57 @@ class TaskScheduler{
 
 
     // function to display the list
-    void displayTasks(){
-        Task* temp = head;
-        while(temp != NULL){
-            cout<<"ID: "<<temp->id<<endl;
-            cout<<"Title: "<<temp->title<<endl;
-            cout<<"Description: "<<temp->desc<<endl;
-            cout<<"Due Date: "<<temp->dueDate<<endl;
-        	cout<<" "<<endl;
-            temp = temp->next;
+   void displayTasks(){
+    // Sorting the tasks based on priority in descending order before displaying
+    Task* current = head;
+    Task* index = NULL;
+    float tempPriority;
+    int tempId;
+    string tempTitle, tempDesc, tempDueDate;
+
+    while(current != NULL){
+        index = current->next;
+
+        while(index != NULL){
+            if(current->priority < index->priority){
+                // Swap the priority values
+                tempPriority = current->priority;
+                current->priority = index->priority;
+                index->priority = tempPriority;
+
+                // Swap other task details
+                tempId = current->id;
+                current->id = index->id;
+                index->id = tempId;
+
+                tempTitle = current->title;
+                current->title = index->title;
+                index->title = tempTitle;
+
+                tempDesc = current->desc;
+                current->desc = index->desc;
+                index->desc = tempDesc;
+
+                tempDueDate = current->dueDate;
+                current->dueDate = index->dueDate;
+                index->dueDate = tempDueDate;
+            }
+            index = index->next;
         }
+        current = current->next;
+    }
+
+    // Display the sorted tasks
+    current = head;
+    while(current != NULL){
+        cout<<"ID: "<<current->id<<endl;
+        cout<<"Title: "<<current->title<<endl;
+        cout<<"Description: "<<current->desc<<endl;
+        cout<<"Due Date: "<<current->dueDate<<endl;
+        cout<<"Priority: "<<current->priority<<endl;
+        cout<<" "<<endl;
+        current = current->next;
+    }
     }
 };
 // Make a functions:
@@ -56,6 +97,7 @@ int main(){
 	// add a while loop that is always true and also it will display some list first of all as soon as user enters the app he should get the menu to enter his priority so that we can sort our linkedlist accordingly
 	TaskScheduler list;
     int choice, id;
+    float priority;
     string title, desc, dueDate;
     cout<<"*********Welcome to Task Scheduler*********"<<endl;
    do {
@@ -71,16 +113,19 @@ int main(){
             cout<<"Enter ID: ";
             cin>>id;
             cout<<"Enter Title: ";
-            cin>>title;
+            cin.ignore(); 
+            getline(cin, title);
             cout<<"Enter Description: ";
-            cin>>desc;
+            getline(cin, desc);
             cout<<"Enter Due Date: ";
             cin>>dueDate;
-            list.addTask(id, title, desc, dueDate);
+            cout<<"Enter your task priority (1 for high), (0.5 for medium), (0 for low): ";
+            cin>>priority;
+            list.addTask(id, title, desc, dueDate, priority);
             break;
 
         case 2:
-            cout << "\nDisplaying all tasks..."<<endl;
+            cout<<"\nDisplaying all tasks..."<<endl;
             list.displayTasks();
             break;
 
@@ -89,10 +134,10 @@ int main(){
             break;
 
         default:
-            cout << "Invalid choice. Please enter a valid option.\n";
+            cout<<"Invalid choice. Please enter a valid option.\n";
         }
 
-    } while (choice != 0);
+    }while(choice != 0);
 
     return 0;
 }
