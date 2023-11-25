@@ -33,6 +33,18 @@ class TaskScheduler{
     head = task; 
 }
 
+    // Funtion to Search the Task by ID
+    Task* searchTaskById(int id){
+        Task* current = head;
+        while(current != NULL){
+            if(current->id == id){
+                return current;
+            }
+            current = current->next;
+        }
+        return NULL;
+    }
+
 
     // function to display the list
    void displayTasks(){
@@ -104,6 +116,7 @@ int main(){
         cout<<"\n<----Our Menu Card---->\n";
         cout<<"1. Add a task\n";
         cout<<"2. Display the tasks\n";
+        cout<<"3. Search task by ID\n";
         cout<<"0. Exit\n";
         cout<<"Enter your choice: ";
         cin >> choice;
@@ -130,11 +143,28 @@ int main(){
             break;
 
         case 3:
-             cout<<"Exiting the program"<<endl;
+            cout<<"Enter the ID of the task you want to search: ";
+            cin>>id;
+            Task* task = list.searchTaskById(id);
+            if(task != NULL){
+            	cout<<" "<<endl;
+                cout<<"ID: "<<task->id<<endl;
+                cout<<"Title: "<<task->title<<endl;
+                cout<<"Description: "<<task->desc<<endl;
+                cout<<"Due Date: "<<task->dueDate<<endl;
+                cout<<"Priority: "<<task->priority<<endl;
+            }else{
+                cout<<"\nTask not found With Id "<<id<<endl;
+            }
+            break;
+
+        case 0:
+            cout<<"Exiting the program"<<endl;
             break;
 
         default:
             cout<<"Invalid choice. Please enter a valid option.\n";
+            break;
         }
 
     }while(choice != 0);
