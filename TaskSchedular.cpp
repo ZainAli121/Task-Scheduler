@@ -38,10 +38,35 @@ class TaskScheduler{
         Task* current = head;
         while(current != NULL){
             if(current->id == id){
+                cout<<" "<<endl;
+                cout<<"ID: "<<current->id<<endl;
+                cout<<"Title: "<<current->title<<endl;
+                cout<<"Description: "<<current->desc<<endl;
+                cout<<"Due Date: "<<current->dueDate<<endl;
+                cout<<"Priority: "<<current->priority<<endl;
                 return current;
             }
             current = current->next;
         }
+        cout<<"Task not found With Id "<<id<<endl;
+        return NULL;
+    }
+
+    Task* searchTaskByTitle(string title){
+        Task* current = head;
+        while(current != NULL){
+            if(current->title == title){
+                cout<<" "<<endl;
+                cout<<"ID: "<<current->id<<endl;
+                cout<<"Title: "<<current->title<<endl;
+                cout<<"Description: "<<current->desc<<endl;
+                cout<<"Due Date: "<<current->dueDate<<endl;
+                cout<<"Priority: "<<current->priority<<endl;
+                return current;
+            }
+            current = current->next;
+        }
+        cout<<"\nTask not found With Title "<<title<<endl;
         return NULL;
     }
 
@@ -117,6 +142,7 @@ int main(){
         cout<<"1. Add a task\n";
         cout<<"2. Display the tasks\n";
         cout<<"3. Search task by ID\n";
+        cout<<"4. Search task by Title\n";
         cout<<"0. Exit\n";
         cout<<"Enter your choice: ";
         cin >> choice;
@@ -145,17 +171,14 @@ int main(){
         case 3:
             cout<<"Enter the ID of the task you want to search: ";
             cin>>id;
-            Task* task = list.searchTaskById(id);
-            if(task != NULL){
-            	cout<<" "<<endl;
-                cout<<"ID: "<<task->id<<endl;
-                cout<<"Title: "<<task->title<<endl;
-                cout<<"Description: "<<task->desc<<endl;
-                cout<<"Due Date: "<<task->dueDate<<endl;
-                cout<<"Priority: "<<task->priority<<endl;
-            }else{
-                cout<<"\nTask not found With Id "<<id<<endl;
-            }
+            list.searchTaskById(id);
+            break;
+
+        case 4:
+            cout<<"Enter the title of the task you want to search: ";
+            cin.ignore(); 
+            getline(cin, title);
+            list.searchTaskByTitle(title);
             break;
 
         case 0:
