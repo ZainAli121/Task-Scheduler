@@ -70,6 +70,27 @@ class TaskScheduler{
         return NULL;
     }
 
+    // function to update the task
+    void UpdateTask(int id){
+        Task* task = searchTaskById(id);
+        if(task != NULL){
+            cout<<"Enter new id: ";
+            cin>>task->id;
+            cout<<"Enter new title: ";
+            cin.ignore(); 
+            getline(cin, task->title);
+            cout<<"Enter new description: ";
+            getline(cin, task->desc);
+            cout<<"Enter new due date: ";
+            cin>>task->dueDate;
+            cout<<"Enter new task priority (1 for high), (0.5 for medium), (0 for low): ";
+            cin>>task->priority;
+            cout<<"Task updated successfully"<<endl;
+        }else{
+            cout<<"Task not found with id "<<id<<endl;
+        }
+    }
+
 
     // function to display the list
    void displayTasks(){
@@ -143,6 +164,7 @@ int main(){
         cout<<"2. Display the tasks\n";
         cout<<"3. Search task by ID\n";
         cout<<"4. Search task by Title\n";
+        cout<<"5. Update a task\n";
         cout<<"0. Exit\n";
         cout<<"Enter your choice: ";
         cin >> choice;
@@ -179,6 +201,12 @@ int main(){
             cin.ignore(); 
             getline(cin, title);
             list.searchTaskByTitle(title);
+            break;
+        
+        case 5:
+            cout<<"Enter the ID of the task you want to update: ";
+            cin>>id;
+            list.UpdateTask(id);
             break;
 
         case 0:
