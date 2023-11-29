@@ -91,6 +91,33 @@ class TaskScheduler{
         }
     }
 
+     // function to delete task
+    void deleteTask(int id){
+    	Task* current = head;
+    	while(current != NULL){
+    		if(current->id == id){
+                if(current->prev != NULL){
+                    // task is not the first node
+                    current->prev->next = current->next;
+                }
+                else{
+                    // task is the first node
+                    head = current->next;
+                }
+                if(current->next != NULL){
+                    // task is not the last node
+                    current->next->prev = current->prev;
+                }
+
+                delete current;
+                cout<<"Task with ID "<<id<<" deleted successfully"<<endl;
+                return;
+            }
+            current = current->next;
+		}
+        cout<<"Task not found with ID "<<id<<endl;
+	}
+
 
     // function to display the list
    void displayTasks(){
@@ -147,12 +174,12 @@ class TaskScheduler{
     }
 };
 // Make a functions:
-//  that will automatically sort our DOUBLY linked list according to priority etc.
+//  that will automatically sort our DOUBLY linked list according to priority etc.   **done**
 //  that search the Task by by Date (near to far), by priority set by him ( at the start ) .
 //  that search by Category i.e fitness category will give all the tasks related to fitness ( we can search by string category/priority already defined in Task Node Stucture.
-// that enables user to edit the task first user will search task by name ( added already ) then update it ,Updated Node will go in the Place of which user wants to change.
+// that enables user to edit the task first user will search task by name ( added already ) then update it ,Updated Node will go in the Place of which user wants to change.  **done**
 int main(){
-	// add a while loop that is always true and also it will display some list first of all as soon as user enters the app he should get the menu to enter his priority so that we can sort our linkedlist accordingly
+	// add a while loop that is always true and also it will display some list first of all as soon as user enters the app he should get the menu to enter his priority so that we can sort our linkedlist accordingly **done**
 	TaskScheduler list;
     int choice, id;
     float priority;
@@ -165,6 +192,7 @@ int main(){
         cout<<"3. Search task by ID\n";
         cout<<"4. Search task by Title\n";
         cout<<"5. Update a task\n";
+        cout<<"6. Delete a task\n";
         cout<<"0. Exit\n";
         cout<<"Enter your choice: ";
         cin >> choice;
@@ -207,6 +235,12 @@ int main(){
             cout<<"Enter the ID of the task you want to update: ";
             cin>>id;
             list.UpdateTask(id);
+            break;
+
+        case 6:
+            cout<<"Enter the ID of the task you want to delete: ";
+            cin>>id;
+            list.deleteTask(id);
             break;
 
         case 0:
