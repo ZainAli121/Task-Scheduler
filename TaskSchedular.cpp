@@ -197,10 +197,14 @@ int main(){
         cout<<"Enter your choice: ";
         cin >> choice;
 
-        switch (choice) {
+        switch(choice){
         case 1:
             cout<<"Enter ID: ";
             cin>>id;
+            if (list.searchTaskById(id) != NULL){
+                cout<<"Task with ID "<<id<<" already exists"<<endl;
+                break;
+            }
             cout<<"Enter Title: ";
             cin.ignore(); 
             getline(cin, title);
